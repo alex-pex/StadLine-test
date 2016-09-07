@@ -22,6 +22,7 @@ module.exports = {
       { test: /\.js$/, loader: "babel-loader", exclude: /node_modules/ },
       { test: /\.jsx?$/, loader: "babel", exclude: /node_modules/ },
       { test: /\.css$/, loader: "style!css" },
+      { test: /\.scss$|\.sass$/, loader: "style!css!sass" },
     ],
   },
 };
