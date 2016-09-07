@@ -1,5 +1,6 @@
 const path = require("path")
 const webpack = require("webpack")
+const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 module.exports = {
   devtool: "eval",
@@ -15,6 +16,9 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new ExtractTextPlugin("style.css", {
+      allChunks: true,
+    }),
   ],
   module: {
     loaders: [
@@ -22,6 +26,8 @@ module.exports = {
       { test: /\.js$/, loader: "babel-loader", exclude: /node_modules/ },
       { test: /\.jsx?$/, loader: "babel", exclude: /node_modules/ },
       { test: /\.css$/, loader: "style!css" },
+      // { test: /\.scss$|\.sass$/, loader: "style!css!sass" },
+      { test: /\.scss$|\.sass$/, loader: ExtractTextPlugin.extract("css!sass")},
     ],
   },
 };
