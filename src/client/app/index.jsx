@@ -9,10 +9,27 @@ import Issue from "./Components/Issue/Issue.jsx"
 import "./index.sass"
 
 let App = class App extends Component {
+  constructor(props, context) {
+    super(props, context)
+    this.state = {}
+  }
+
+  getChildContext() {
+    return {
+      setTitle: (title) => this.setTitle(title)
+    }
+  }
+
+  setTitle(title) {
+    this.setState({
+      title: title
+    })
+  }
+
   render() {
     return (
       <div>
-        <TopBar />
+        <TopBar title={this.state.title} />
         <SideBar />
         <section className="content">
           { this.props.children }
@@ -20,6 +37,10 @@ let App = class App extends Component {
       </div>
     )
   }
+}
+
+App.childContextTypes = {
+  setTitle: React.PropTypes.func,
 }
 
 let routes = (

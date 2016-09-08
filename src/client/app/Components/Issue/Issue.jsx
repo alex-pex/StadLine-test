@@ -5,11 +5,12 @@ import Comment from "../Conversation/Comment.jsx"
 import "../Conversation/Conversation.sass"
 
 export default class Issue extends Component {
-  constructor(props) {
-    super(props)
+  constructor(props, context) {
+    super(props, context)
     this.state = {
       comments: [],
       issue: null,
+      setTitle: context.setTitle
     }
   }
 
@@ -25,6 +26,7 @@ export default class Issue extends Component {
         issue: data,
         author: data.user.login,
       })
+      self.state.setTitle(data.title)
     })
 
     $.get(baseUrl + "/comments", function(data) {
@@ -48,10 +50,12 @@ export default class Issue extends Component {
   render() {
     return (
       <ul className='conversation'>
-        <span className="title">Conversation with Kerem</span>
-        { this.state.issue ?
-          <Comment comment={ this.state.issue } isAuthor={true} />
-        : ''}
+        { this.state.issue ? (
+          <div>
+            <span className="title">{ this.state.issue.title }</span>
+            <Comment comment={ this.state.issue } isAuthor={true} />
+          </div>
+        ) : '' }
 
         { this.renderComments() }
       </ul>
@@ -60,5 +64,9 @@ export default class Issue extends Component {
 }
 
 Issue.propTypes = {
-  params: React.PropTypes.object
+  params: React.PropTypes.object,
+}
+
+Issue.contextTypes = {
+  setTitle: React.PropTypes.func,
 }
