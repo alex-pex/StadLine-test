@@ -5,14 +5,14 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin")
 module.exports = {
   devtool: "eval",
   entry: [
-    "webpack-dev-server/client?http://localhost:3000",
+    "webpack-dev-server/client?http://localhost:3001",
     "webpack/hot/only-dev-server",
     "./src/client/app/index.jsx",
   ],
   output: {
     path: path.join(__dirname, "/dist"),
     filename: "bundle.js",
-    publicPath: "/public/",
+    publicPath: "http://localhost:3001/public/",
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
