@@ -1,0 +1,3 @@
+node_modules/**
+src/client/public/**
+src/client/index.dev.html
